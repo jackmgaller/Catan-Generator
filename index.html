@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="board.css">
+        <link rel="stylesheet" href="ui.css">
+    </head>
+    <body>
+        
+        <h1>Catan Board Generator</h1>
+        <div class="main">
+            <div class="controls">
+                <input type="checkbox" id="noRedSpacesOfSameResource" name="noRedSpacesOfSameResource">
+                <label for="noRedSpacesOfSameResource">Disallow red spaces on the same resource</label>
+                <br>
+                <input type="checkbox" id="noNeighboringRedSpaces" name="noNeighboringRedSpaces">
+                <label for="noNeighboringRedSpaces">Disallow red spaces to be placed next to each other</label>
+                <br>
+                <input type="checkbox" id="noResourceClusters" name="noResourceClusters">
+                <label for="noResourceClusters">Disallow a resource type clumping together</label>
+                <br>
+                <input type="checkbox" id="noRedPorts" name="noRedPorts">
+                <label for="noRedPorts">Disallow red spaces to be placed next to ports of their type</label>
+                <br>
+                <br>
+                <input name="playstyle" type="radio" id="defaultPlay" name="defaultPlay" checked>
+                <label for="defaultPlay">Default Game</label>
+                <br>
+                <input name="playstyle" type="radio" id="fishermenOfCatanEnabled" name="fishermenOfCatanEnabled">
+                <label for="fishermenOfCatanEnabled">Fishermen of Catan</label>
+                <br>
+                <input name="playstyle" type="radio" id="greatCaravanEnabled" name="greatCaravanEnabled">
+                <label for="greatCaravanEnabled">Great Caravan</label>
+                <br>
+                <button id="generateButton" onclick="generateButtonClicked()">Generate!</button>
+            </div>
+            <div class="counts">
+                <div id="woodPercent">Wood</div>
+                <div id="brickPercent">Brick</div>
+                <div id="sheepPercent">Sheep</div>
+                <div id="wheatPercent">Wheat</div>
+                <div id="rockPercent">Rock</div>
+            </div>
+        </div>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+        <span class="token">NUMBER<br>DOTS</span>
+
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <span class="fishtoken">NUMBER<br>DOTS</span>
+        <div class="board">
+            <div class="row zero">
+                <img src="port.png" class="hide">
+                <img src="port.png" class="port">
+                <img src="port.png" class="hide">
+                <img src="port.png" class="port">
+            </div>
+            <div class="row one">
+                <img src="port.png" class="port">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="port.png" class="hide">
+            </div>
+            <div class="row two">
+                <img src="port.png" class="hide">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="port.png" class="port">
+            </div>
+            <div class="row three">
+                <img src="port.png" class="port">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="port.png" class="hide">
+            </div>
+            <div class="row two">
+                <img src="port.png" class="hide">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="port.png" class="port">
+            </div>
+            <div class="row one">
+                <img src="port.png" class="port">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="sheep.png" class="spot">
+                <img src="port.png" class="hide">
+            </div>
+            <div class="row zero">
+                <img src="port.png" class="hide">
+                <img src="port.png" class="port">
+                <img src="port.png" class="hide">
+                <img src="port.png" class="port">
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

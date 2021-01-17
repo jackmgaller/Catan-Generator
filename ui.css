@@ -1,0 +1,13 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.main > div {
+    padding: 0 1rem;
+}
+
+.controls button {
+    margin-top: 1rem;
+}

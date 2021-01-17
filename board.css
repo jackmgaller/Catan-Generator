@@ -1,0 +1,95 @@
+.hex:before {
+    content: " ";
+    width: 0; height: 0;
+    border-bottom: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
+    position: absolute;
+    top: -30px;
+}
+
+.hex {
+    margin-top: 30px;
+    width: 104px;
+    height: 60px;
+    background-image: url("sheep.png");
+    background-clip: padding-box;
+    position: relative;
+    margin-right: 2px;
+}
+
+.hex:after {
+    content: "";
+    width: 0;
+    position: absolute;
+    bottom: -30px;
+    border-top: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
+}
+
+img {
+    clip-path: polygon(50% 100%, 75% 75%, 75% 25%, 50% 0%, 25% 25%, 25% 75%);
+    width: 200px;
+    height: 122px;
+}
+.row {
+    display: flex;
+}
+.row img + img{
+    margin-left: -98px;
+}
+
+.zero {
+    margin-top: -29px;
+    margin-left: calc(51px * 3);
+}
+
+.one {
+    margin-top: -29px;
+    margin-left: calc(51px * 2);
+}
+
+.two {
+    margin-top: -29px;
+    margin-left: calc(51px * 1);
+}
+
+.three {
+    margin-top: -29px;
+}
+
+.board {
+    padding: 64px;
+}
+
+* {
+    font-family: sans-serif;
+    user-select: none;
+}
+
+.hide {
+    opacity: 0%;
+}
+
+.token {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background-color: tan;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    text-align: center;
+}
+
+.fishtoken {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background-color: rgb(41, 92, 235);
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    text-align: center;
+}
