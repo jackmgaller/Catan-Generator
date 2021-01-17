@@ -26,7 +26,7 @@ const generateButtonClicked = () => {
 
 const generateNewBoard = () => {
     Array.from(document.getElementsByClassName("port")).forEach((portElement) => {
-        if (portElement.src.toString().includes("fish.jpg")) {
+        if (portElement.src.toString().includes("images/fish.jpg")) {
             portElement.classList.replace("port", "hide")
         }
     })
@@ -69,7 +69,7 @@ const generateNewBoard = () => {
     }
 
     resourceOptions.forEach((resource, index) => {
-        spots[index].src = `${resource}.png`
+        spots[index].src = `images/${resource}.png`
     });
 
     //SHUFFLE AND SET DOTS
@@ -138,7 +138,7 @@ const generateNewBoard = () => {
     shuffleArray(portTypes)
 
     portTypes.forEach((portType, index) => {
-        ports[index].src = `${portType}.png`
+        ports[index].src = `images/${portType}.png`
     });
 
     //CHECK SUBGAMES
@@ -157,7 +157,7 @@ const generateNewBoard = () => {
         fishingShoals = [hiddenPorts[1], hiddenPorts[2], hiddenPorts[3], hiddenPorts[5], hiddenPorts[6], hiddenPorts[8]]
         fishingShoals.forEach((shoal, index) => {
             shoal.classList.replace("hide", "port");
-            shoal.src = "fish.jpg"
+            shoal.src = "images/fish.jpg"
 
             fishTokens[index].style.top = `${fishingShoals[index].offsetTop + 40}px`
             fishTokens[index].style.left = `${fishingShoals[index].offsetLeft + 70}px`
@@ -169,15 +169,15 @@ const generateNewBoard = () => {
         });
 
         spots.forEach((spot) => {
-            if (spot.src.toString().includes("desert.png")) {
-                spot.src = "lake.jpg"
+            if (spot.src.toString().includes("images/desert.png")) {
+                spot.src = "images/lake.jpg"
             }
         })
     } else {
         fishTokens.forEach((fishToken) => fishToken.style.display = "none")
         spots.forEach((spot) => {
-            if (spot.src.toString().includes("lake.jpg")) {
-                spot.src = "desert.jpg"
+            if (spot.src.toString().includes("images/lake.jpg")) {
+                spot.src = "images/desert.jpg"
             }
         })
     }
