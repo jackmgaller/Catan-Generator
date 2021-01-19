@@ -69,7 +69,11 @@ const generateNewBoard = () => {
     }
 
     resourceOptions.forEach((resource, index) => {
-        spots[index].src = `images/${resource}.png`
+        if (resource === "desert" && greatCaravanEnabled) {
+            spots[index].src = pickRandomly("images/caravan1.jpg", "images/caravan2.jpg")
+        } else {
+            spots[index].src = `images/${resource}.png`
+        }
     });
 
     //SHUFFLE AND SET DOTS
@@ -278,6 +282,8 @@ const shuffleArray = (array) => {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+
+const pickRandomly = (x, y) => Math.random() > .5 ? x : y;
 
 const isRedSpace = (count) => count === 6 || count === 8;
 
