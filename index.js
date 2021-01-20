@@ -220,7 +220,7 @@ const generateNewBoard = () => {
             "wood": 0,
         }
 
-        board.counts.forEach(({ resource, count }) => {
+        board.forEach(({ resource, count }) => {
             if (isRedSpace(count)) {
                 redSpaceResourceTypes[resource] = redSpaceResourceTypes[resource] + 1;
             }
