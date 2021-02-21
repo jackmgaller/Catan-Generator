@@ -6,19 +6,14 @@ var resourceHexes = []
 var portHexes = []
 var blankHexes = []
 
-var ports = Array.from(document.getElementsByClassName("port"));
-var dots =  Array.from(document.getElementsByClassName("token"));
-var fishTokens =  Array.from(document.getElementsByClassName("fishtoken"));
+var dots = [] 
+var fishDots = []
 
 var generateButton = document.getElementById("generateButton")
 
 var board = []
 
-dots.forEach(dot => {
-    dot.style.display = "none";
-});
-
-fishTokens.forEach((fishToken) => {
+fishDots.forEach((fishToken) => {
     fishToken.style.display = "none";
 });
 
@@ -53,8 +48,34 @@ const createLayout = () => {
     blankHexes = Array.from(hexes).filter((_, index) => regularBoardSpaces.hidden.includes(index))
 
     blankHexes.forEach((blankHex) => {
-        blankHex.style.opacity = 0;
-    })
+        blankHex.classList.add("hide");
+    });
+
+    const dotContainerElement = document.createElement('div');
+
+    for (let i = 0; i < 19; i++) {
+        const dotElement = document.createElement('div');
+
+        dotElement.classList.add("token");
+        dotElement.innerHTML = "NUMBER<br>DOTS";
+
+        dotContainerElement.appendChild(dotElement)
+    }
+
+    for (let i = 0; i < 6; i++) {
+        const fishDotElement = document.createElement('div');
+
+        fishDotElement.classList.add("fishtoken");
+        fishDotElement.innerHTML = "NUMBER<br>DOTS";
+        fishDotElement.style.display = "none";
+
+        dotContainerElement.appendChild(fishDotElement)
+    }
+
+    boardElement.appendChild(dotContainerElement)
+
+    dots = Array.from(document.getElementsByClassName("token"));
+    fishDots = Array.from(document.getElementsByClassName("fishtoken"));
 }
 
 createLayout();
@@ -213,13 +234,13 @@ const generateNewBoard = () => {
             shoal.classList.replace("hide", "port");
             shoal.src = "images/fish.jpg"
 
-            fishTokens[index].style.top = `${fishingShoals[index].offsetTop + 40}px`
-            fishTokens[index].style.left = `${fishingShoals[index].offsetLeft + 70}px`
-            fishTokens[index].style.zIndex = 5;
-            fishTokens[index].style.color = "lightblue";
-            fishTokens[index].innerHTML = `${fishNumbers[index]}<br>${probabilities[fishNumbers[index]]}`
+            fishDots[index].style.top = `${fishingShoals[index].offsetTop + 40}px`
+            fishDots[index].style.left = `${fishingShoals[index].offsetLeft + 70}px`
+            fishDots[index].style.zIndex = 5;
+            fishDots[index].style.color = "lightblue";
+            fishDots[index].innerHTML = `${fishNumbers[index]}<br>${probabilities[fishNumbers[index]]}`
 
-            fishTokens[index].style.display = ""
+            fishDots[index].style.display = ""
         });
 
         hexes.forEach((hex) => {
@@ -228,7 +249,7 @@ const generateNewBoard = () => {
             }
         })
     } else {
-        fishTokens.forEach((fishToken) => fishToken.style.display = "none")
+        fishDots.forEach((fishDot) => fishDot.style.display = "none")
         hexes.forEach((hex) => {
             if (hex.src.toString().includes("images/lake.jpg")) {
                 hex.src = "images/desert.jpg"
