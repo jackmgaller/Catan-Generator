@@ -1,4 +1,5 @@
-import { regularBoardSpaces } from './constants.js' 
+import { probabilities, regularBoardSpaces, portAdjacencyTable, hexAdjacencyTable } from './constants.js' 
+import { isRedSpace, pickRandomly, shuffleArray } from './utilities.js'
 
 //DOM elements
 var hexes = []
@@ -9,20 +10,18 @@ var blankHexes = []
 var dots = [] 
 var fishDots = []
 
-var generateButton = document.getElementById("generateButton")
-
 var board = []
 
-fishDots.forEach((fishToken) => {
-    fishToken.style.display = "none";
-});
+var generateButton = document.getElementById("generateButton")
 
+//Event handler
 document.getElementById('generateButton').onclick = () => {
     generateButton.disabled = "true"
     generateButton.innerText = "Generating..."
     generateNewBoard();
 }
 
+//Functions
 const createLayout = () => {
     const boardElement = document.getElementById('board');
 
@@ -78,8 +77,6 @@ const createLayout = () => {
     fishDots = Array.from(document.getElementsByClassName("fishtoken"));
 }
 
-createLayout();
-
 const generateNewBoard = () => {
     Array.from(document.getElementsByClassName("port")).forEach((portElement) => {
         if (portElement.src.toString().includes("images/fish.jpg")) {
@@ -96,18 +93,7 @@ const generateNewBoard = () => {
     let fishermenOfCatanEnabled = document.getElementById("fishermenOfCatanEnabled").checked;
     let greatCaravanEnabled = document.getElementById("greatCaravanEnabled").checked;
 
-    const probabilities = {
-        "2": ".",
-        "3": "..",
-        "4": "...",
-        "5": "....",
-        "6": ".....",
-        "8": ".....",
-        "9": "....",
-        "10": "...",
-        "11": "..",
-        "12": ".",
-    }
+    
 
     //SHUFFLE AND SET RESOURCES
     console.log("Shuffle and set resources");
@@ -212,7 +198,6 @@ const generateNewBoard = () => {
     shuffleArray(portTypes)
 
     portTypes.forEach((portType, index) => {
-        console.log([hexes, regularBoardSpaces, index, regularBoardSpaces.ports[index]])
         portHexes[index].src = `images/${portType}.png`
     });
 
@@ -262,8 +247,7 @@ const generateNewBoard = () => {
 
     let boardDefect = false;
 
-    const spotAdjacencyTable = [[1, 3, 4], [0, 2, 4, 5], [1, 5, 6], [0, 4, 7, 8], [0, 1, 3, 5, 8, 9], [1, 4, 6, 9, 10], [2, 5, 10, 11], [3, 8, 12], [3, 4, 7, 9, 12, 13], [4, 5, 8, 10, 13, 14], [5, 6, 9, 11, 14, 15], [6, 10, 15], [7, 8, 13, 16], [8, 9, 12, 14, 16, 17], [9, 10, 13, 15, 17, 18], [10, 11, 14, 18], [12, 13, 17], [13, 14, 16, 18], [14, 15, 17]]
-    const portAdjacencyTable = [[0, 1], [2], [0, 3], [6, 11], [7], [11, 15], [12, 16], [16, 17], [18]]
+    
 
     if (noRedSpacesOfSameResource) {
         let redSpaceResourceTypes = {
@@ -286,7 +270,7 @@ const generateNewBoard = () => {
     if (noNeighboringRedSpaces) {
         board.forEach(({ count }, index) => {
             if (isRedSpace(count)) {
-                spotAdjacencyTable[index].forEach((adjacentSpot) => {
+                hexAdjacencyTable[index].forEach((adjacentSpot) => {
                     if (isRedSpace(board[adjacentSpot].count)) {
                         boardDefect = true;
                     }
@@ -297,7 +281,7 @@ const generateNewBoard = () => {
     }
     if (noResourceClusters) {
         board.forEach(({ resource }, index) => {
-            const neighboringResources = spotAdjacencyTable[index].map((x) => board[x].resource).filter((y) => y === resource);
+            const neighboringResources = hexAdjacencyTable[index].map((x) => board[x].resource).filter((y) => y === resource);
             const matchingNeighborsCount = neighboringResources.length;
             
             if (resource === "wood" || resource === "sheep" || resource === "wheat") {
@@ -342,16 +326,5 @@ const generateNewBoard = () => {
 
 }
 
-
-const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-const pickRandomly = (x, y) => Math.random() > .5 ? x : y;
-
-const isRedSpace = (count) => count === 6 || count === 8;
-
+createLayout()
 generateNewBoard()
