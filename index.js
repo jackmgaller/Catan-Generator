@@ -1,5 +1,11 @@
+import { regularBoardSpaces } from './constants.js' 
+
 //DOM elements
-var spots = Array.from(document.getElementsByClassName("spot"));
+var hexes = []
+var resourceHexes = []
+var portHexes = []
+var blankHexes = []
+
 var ports = Array.from(document.getElementsByClassName("port"));
 var dots =  Array.from(document.getElementsByClassName("token"));
 var fishTokens =  Array.from(document.getElementsByClassName("fishtoken"));
@@ -7,8 +13,6 @@ var fishTokens =  Array.from(document.getElementsByClassName("fishtoken"));
 var generateButton = document.getElementById("generateButton")
 
 var board = []
-
-var attempt = 0;
 
 dots.forEach(dot => {
     dot.style.display = "none";
@@ -18,12 +22,42 @@ fishTokens.forEach((fishToken) => {
     fishToken.style.display = "none";
 });
 
-
-const generateButtonClicked = () => {
+document.getElementById('generateButton').onclick = () => {
     generateButton.disabled = "true"
     generateButton.innerText = "Generating..."
     generateNewBoard();
 }
+
+const createLayout = () => {
+    const boardElement = document.getElementById('board');
+
+    [0, 1, 2, 3, 2, 1, 0].forEach((rowNumber) => {
+        const rowElement = document.createElement('div');
+        rowElement.classList.add("row");
+        rowElement.classList.add(`row${rowNumber}`);
+
+        for (let i = 0; i < rowNumber + 4; i++) {
+            const hexElement = document.createElement('img');
+            hexElement.classList.add('hex');
+
+            rowElement.appendChild(hexElement);
+        }
+
+        boardElement.appendChild(rowElement);
+    })
+
+    hexes = Array.from(document.getElementsByClassName("hex"));
+
+    resourceHexes = Array.from(hexes).filter((_, index) => regularBoardSpaces.resources.includes(index))
+    portHexes = Array.from(hexes).filter((_, index) => regularBoardSpaces.ports.includes(index))
+    blankHexes = Array.from(hexes).filter((_, index) => regularBoardSpaces.hidden.includes(index))
+
+    blankHexes.forEach((blankHex) => {
+        blankHex.style.opacity = 0;
+    })
+}
+
+createLayout();
 
 const generateNewBoard = () => {
     Array.from(document.getElementsByClassName("port")).forEach((portElement) => {
@@ -33,7 +67,6 @@ const generateNewBoard = () => {
     })
     
 
-    attempt++;
     //settings
     let noRedSpacesOfSameResource = document.getElementById("noRedSpacesOfSameResource").checked;
     let noNeighboringRedSpaces = document.getElementById("noNeighboringRedSpaces").checked;
@@ -77,11 +110,12 @@ const generateNewBoard = () => {
         board[desertIndex] = temp;
     }
 
+    
     board.forEach((tile, index) => {
         if (tile.resource === "desert" && greatCaravanEnabled) {
-            spots[index].src = pickRandomly("images/caravan1.jpg", "images/caravan2.jpg")
+            resourceHexes[index].src = pickRandomly("images/caravan1.jpg", "images/caravan2.jpg")
         } else {
-            spots[index].src = `images/${tile.resource}.png`
+            resourceHexes[index].src = `images/${tile.resource}.png`
         }
     });
 
@@ -92,8 +126,6 @@ const generateNewBoard = () => {
     shuffleArray(counts);
 
     counts.splice(board.findIndex(x => x.resource === "desert"), 0, -1) //we need to add a count in for the desert
-
-    console.log(board);
 
     board = board.map((tile, index) => {
         return {
@@ -106,8 +138,8 @@ const generateNewBoard = () => {
 
     board.forEach(({resource, count}, index) => {
         if (resource !== "desert") {
-            dots[index].style.top = `${spots[index].offsetTop + 40}px`
-            dots[index].style.left = `${spots[index].offsetLeft + 70}px`
+            dots[index].style.top = `${resourceHexes[index].offsetTop + 40}px`
+            dots[index].style.left = `${resourceHexes[index].offsetLeft + 70}px`
 
             dots[index].style.zIndex = 5;
 
@@ -159,7 +191,8 @@ const generateNewBoard = () => {
     shuffleArray(portTypes)
 
     portTypes.forEach((portType, index) => {
-        ports[index].src = `images/${portType}.png`
+        console.log([hexes, regularBoardSpaces, index, regularBoardSpaces.ports[index]])
+        portHexes[index].src = `images/${portType}.png`
     });
 
     //CHECK SUBGAMES
@@ -189,16 +222,16 @@ const generateNewBoard = () => {
             fishTokens[index].style.display = ""
         });
 
-        spots.forEach((spot) => {
-            if (spot.src.toString().includes("images/desert.png")) {
-                spot.src = "images/lake.jpg"
+        hexes.forEach((hex) => {
+            if (hex.src.toString().includes("images/desert.png")) {
+                hex.src = "images/lake.jpg"
             }
         })
     } else {
         fishTokens.forEach((fishToken) => fishToken.style.display = "none")
-        spots.forEach((spot) => {
-            if (spot.src.toString().includes("images/lake.jpg")) {
-                spot.src = "images/desert.jpg"
+        hexes.forEach((hex) => {
+            if (hex.src.toString().includes("images/lake.jpg")) {
+                hex.src = "images/desert.jpg"
             }
         })
     }

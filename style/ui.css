@@ -11,3 +11,8 @@
 .controls button {
     margin-top: 1rem;
 }
+
+* {
+    font-family: sans-serif;
+    user-select: none;
+}

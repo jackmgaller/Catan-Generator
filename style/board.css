@@ -1,71 +1,32 @@
-.hex:before {
-    content: " ";
-    width: 0; height: 0;
-    border-bottom: 30px solid #6C6;
-    border-left: 52px solid transparent;
-    border-right: 52px solid transparent;
-    position: absolute;
-    top: -30px;
-}
-
 .hex {
-    margin-top: 30px;
-    width: 104px;
-    height: 60px;
-    background-image: url("sheep.png");
+    background-color: transparent;
+    height: 200px;
+    width: 150px;
+    clip-path: polygon(50% 100%, 100% 75%, 100% 25%, 50% 0%, 0% 25%, 0% 75%);
     background-clip: padding-box;
-    position: relative;
     margin-right: 2px;
 }
 
-.hex:after {
-    content: "";
-    width: 0;
-    position: absolute;
-    bottom: -30px;
-    border-top: 30px solid #6C6;
-    border-left: 52px solid transparent;
-    border-right: 52px solid transparent;
-}
-
-img {
-    clip-path: polygon(50% 100%, 75% 75%, 75% 25%, 50% 0%, 25% 25%, 25% 75%);
-    width: 200px;
-    height: 122px;
-}
 .row {
     display: flex;
-}
-.row img + img{
-    margin-left: -98px;
+    margin-top: -48px;
 }
 
-.zero {
-    margin-top: -29px;
-    margin-left: calc(51px * 3);
+.row0 {
+    margin-left: calc(76px * 3);
 }
 
-.one {
-    margin-top: -29px;
-    margin-left: calc(51px * 2);
+.row1 {
+    margin-left: calc(76px * 2);
 }
 
-.two {
-    margin-top: -29px;
-    margin-left: calc(51px * 1);
-}
-
-.three {
-    margin-top: -29px;
+.row2 {
+    margin-left: 76px;
 }
 
 .board {
+    min-width: 1000px;
     padding: 64px;
-}
-
-* {
-    font-family: sans-serif;
-    user-select: none;
 }
 
 .hide {
