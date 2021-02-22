@@ -145,8 +145,8 @@ const generateNewBoard = () => {
 
     board.forEach(({resource, count}, index) => {
         if (resource !== "desert") {
-            dots[index].style.top = `${resourceHexes[index].offsetTop + 40}px`
-            dots[index].style.left = `${resourceHexes[index].offsetLeft + 70}px`
+            dots[index].style.top = `${resourceHexes[index].offsetTop + 60}px`
+            dots[index].style.left = `${resourceHexes[index].offsetLeft + 37.5}px`
 
             dots[index].style.zIndex = 5;
 
