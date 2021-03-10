@@ -1,3 +1,10 @@
+@media (prefers-color-scheme: dark) {
+    * {
+        background-color: black;
+        color: white;
+    }
+}
+
 .main {
     display: flex;
     justify-content: space-between;
