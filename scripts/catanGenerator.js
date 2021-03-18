@@ -1,5 +1,5 @@
-import { probabilities, regularBoardSpaces, portAdjacencyTable, hexAdjacencyTable } from './constants.js' 
-import { isRedSpace, pickRandomly, shuffleArray } from './utilities.js'
+import { probabilities, regularBoardSpaces, portAdjacencyTable, hexAdjacencyTable, validLakeIndecies } from './constants.js' 
+import { isRedSpace, pickRandomElement, pickRandomlyFromPair, shuffleArray } from './utilities.js'
 
 //DOM elements
 var hexes = []
@@ -107,6 +107,16 @@ const generateNewBoard = () => {
         }
     });
 
+    if (fishermenOfCatanEnabled) { //Ensure the Lake is one of the middle hexes
+        const desertIndex = board.findIndex(x => x.resource === 'desert');
+        if (!validLakeIndecies.includes(desertIndex)) {
+            const temp = board[desertIndex];
+            const randomValidTileIndex = pickRandomElement(validLakeIndecies);
+            board[desertIndex] = board[randomValidTileIndex]
+            board[randomValidTileIndex] = temp;
+        }
+    }
+
     if (greatCaravanEnabled) { //Swap desert with center square
         const desertIndex = board.findIndex(x => x.resource === "desert");
         const temp = board[9];
@@ -120,7 +130,7 @@ const generateNewBoard = () => {
     
     board.forEach((tile, index) => {
         if (tile.resource === "desert" && greatCaravanEnabled) {
-            resourceHexes[index].src = pickRandomly("images/caravan1.jpg", "images/caravan2.jpg")
+            resourceHexes[index].src = pickRandomlyFromPair("images/caravan1.jpg", "images/caravan2.jpg")
         } else {
             resourceHexes[index].src = `images/${tile.resource}.png`
         }
@@ -304,16 +314,6 @@ const generateNewBoard = () => {
                 });
             }
         });
-    }
-    if (fishermenOfCatanEnabled) {
-        const desertIndex = board.findIndex(x => x.resource === "desert");
-
-        if (!(desertIndex === 4 || desertIndex === 5 || desertIndex === 8 || desertIndex === 9 || desertIndex === 10 || desertIndex === 13 || desertIndex === 14)) {
-            boardDefect = true;
-        }
-
-
-
     }
 
     if (boardDefect) {

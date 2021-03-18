@@ -5,6 +5,8 @@ export const shuffleArray = (array) => {
     }
 }
 
-export const pickRandomly = (x, y) => Math.random() > .5 ? x : y;
+export const pickRandomlyFromPair = (x, y) => Math.random() > .5 ? x : y;
+
+export const pickRandomElement = (items) => items[Math.floor(Math.random() * items.length)];
 
 export  const isRedSpace = (count) => count === 6 || count === 8;
