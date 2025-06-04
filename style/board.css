@@ -10,18 +10,11 @@
 .row {
     display: flex;
     margin-top: -48px;
+    margin-left: calc(var(--hex-offset) * var(--indent, 0));
 }
 
-.row0 {
-    margin-left: calc(76px * 3);
-}
-
-.row1 {
-    margin-left: calc(76px * 2);
-}
-
-.row2 {
-    margin-left: 76px;
+:root {
+    --hex-offset: 76px;
 }
 
 #board {
