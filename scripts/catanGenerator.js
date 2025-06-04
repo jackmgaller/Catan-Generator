@@ -246,7 +246,7 @@ const generateNewBoard = () => {
         fishDots.forEach((fishDot) => fishDot.style.display = "none")
         hexes.forEach((hex) => {
             if (hex.src.toString().includes("images/lake.jpg")) {
-                hex.src = "images/desert.jpg"
+                hex.src = "images/desert.png"
             }
         })
     }
