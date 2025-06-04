@@ -28,7 +28,7 @@ const createLayout = () => {
     [0, 1, 2, 3, 2, 1, 0].forEach((rowNumber) => {
         const rowElement = document.createElement('div');
         rowElement.classList.add("row");
-        rowElement.classList.add(`row${rowNumber}`);
+        rowElement.style.setProperty('--indent', Math.abs(3 - rowNumber));
 
         for (let i = 0; i < rowNumber + 4; i++) {
             const hexElement = document.createElement('img');
